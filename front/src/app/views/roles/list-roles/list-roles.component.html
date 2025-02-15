@@ -1,0 +1,33 @@
+<button type="button" class="btn btn-success mb-3 text-white" (click)="openModal()">Crear Nuevo</button>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let role of roles;let i=index">
+        <th scope="row">{{ (currentPage - 1) * pageSize + i + 1 }}</th>
+        <td>{{role.name}}</td>
+        <td>
+          <button type="button" class="btn btn-warning btn-sm mx-2 text-white" (click)="openModalEdit(role)">
+            <i class="bi bi-pencil-fill"></i>
+          </button>
+          <button type="button" class="btn btn-danger btn-sm text-white" (click)="deleteRole(role.id)"><i class="bi bi-trash2-fill"></i></button>
+        </td>
+      </tr>
+      
+    </tbody>
+  </table>
+ 
+  <ngb-pagination
+  [collectionSize]="totalItems"
+  [(page)]="currentPage"
+  [pageSize]="pageSize"
+  (pageChange)="onPageChange($event)">
+</ngb-pagination>
+<div *ngIf="roles.length === 0">
+  No hay datos disponibles.
+</div>

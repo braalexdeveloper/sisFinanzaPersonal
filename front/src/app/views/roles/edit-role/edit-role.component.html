@@ -1,0 +1,17 @@
+
+<div class="modal-header bg-primary text-white">
+    <h4 class="modal-title">Editar Rol</h4>
+   
+  </div>
+  <div class="modal-body">
+    <form  (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="name" class="form-label">Nombre del Rol</label>
+        <input type="text" class="form-control" id="name" required [(ngModel)]="name"  name="name">
+      </div>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+      <button type="button" class="close btn btn-danger text-white ms-2" aria-label="Close" (click)="modalRef.hide()">
+        Cerrar
+      </button>
+    </form>
+  </div>

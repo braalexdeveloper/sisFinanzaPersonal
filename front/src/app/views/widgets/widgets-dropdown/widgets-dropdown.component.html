@@ -1,0 +1,56 @@
+<c-row class="g-4">
+  <c-col sm="6" xl="3">
+    <c-widget-stat-a
+      color="primary"
+      [title]="'Gasto Diario'"
+    >
+      <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+        S/ {{expense_daily}} 
+        
+      </ng-template>
+      
+   
+    </c-widget-stat-a>
+  </c-col>
+  <c-col sm="6" xl="3">
+    <c-widget-stat-a
+      [title]="'Gasto Mensual'"
+      color="info"
+    >
+      <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+        <span>S/ {{expense_month}} </span>
+       
+      </ng-template>
+      
+      
+    </c-widget-stat-a>
+  </c-col>
+  <c-col sm="6" xl="3">
+    <c-widget-stat-a
+      [title]="'Gasto Anual'"
+      color="warning"
+    >
+      <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+        <span>S/ {{expense_year}} </span>
+       
+      </ng-template>
+      
+      
+    </c-widget-stat-a>
+  </c-col>
+  <c-col sm="6" xl="3">
+    <c-widget-stat-a
+      [title]="'Sessions'"
+      color="danger"
+    >
+      <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+        <span>44K</span>
+        <span class="fw-normal" style="font-size: 12px;">
+          (-23.6% <svg cIcon name="cilArrowBottom" size="sm"></svg>)
+        </span>
+      </ng-template>
+     
+      
+    </c-widget-stat-a>
+  </c-col>
+</c-row>

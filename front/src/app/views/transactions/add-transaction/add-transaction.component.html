@@ -1,0 +1,39 @@
+
+<div class="modal-header bg-primary text-white">
+    <h4 class="modal-title">Agregar Transacción</h4>
+   
+  </div>
+  <div class="modal-body">
+    <form  (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+            <label for="name" class="form-label">Elige el tipo de Transacción</label>
+            <select [(ngModel)]="type"  name="type" class="form-select">
+                <option  value="gasto">Gasto</option>
+                <option value="ingreso">Ingreso</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="name" class="form-label">Elige una categoria</label>
+            <select [(ngModel)]="category"  name="category" class="form-select">
+              <option value="">Selecciona una categoria</option>
+                <option value="{{cat.id}}" *ngFor="let cat of categories">{{cat.name}}</option>
+            </select>
+          </div>
+      <div class="mb-3">
+        <label for="name" class="form-label">Descripción</label>
+        <input type="text" class="form-control" id="descripcion" required [(ngModel)]="description"  name="description">
+      </div>
+      <div class="mb-3">
+        <label for="name" class="form-label">Monto</label>
+        <input type="number" class="form-control" id="amount" required [(ngModel)]="amount"  name="amount">
+      </div>
+      <div class="mb-3">
+        <label for="name" class="form-label">Fecha</label>
+        <input type="date" class="form-control"  id="fecha" required [(ngModel)]="date"  name="date">
+      </div>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+      <button type="button" class="close btn btn-danger text-white ms-2" aria-label="Close" (click)="modalRef.hide()">
+        Cerrar
+      </button>
+    </form>
+  </div>

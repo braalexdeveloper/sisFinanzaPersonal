@@ -1,0 +1,63 @@
+<button type="button" class="btn btn-success mb-3 text-white" (click)="openModal()">Crear Nuevo</button>
+<div class="row">
+  
+  <div class="mb-3 col-4">
+    <label for="name" class="form-label">Filtra por tipo de Transacción</label>
+    <select   name="type" [(ngModel)]="type" class="form-select" (change)="handleType()">
+      <option value="">Selecciona el tipo de Transacción</option>
+        <option  value="gasto">Gasto</option>
+        <option value="ingreso">Ingreso</option>
+    </select>
+  </div>
+  <div class="mb-3 col-4">
+     <label for="name" class="form-label">Filtra por Fecha</label>
+        <input type="date" class="form-control"  id="date" required [(ngModel)]="date"  name="date" (change)="handleDate()">
+  </div>
+  <div class="mb-3 col-4 d-flex flex-column justify-content-end">
+    
+   <button class="btn btn-secondary btn-sm mb-0  text-white" *ngIf="btnDeleteFilters" (click)="clearFilters()">Borrar Filtros</button>
+ </div>
+</div>
+<div class="table-responsive">
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Categoria</th>
+        <th scope="col">Descripción</th>
+        <th scope="col">Monto</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let transaction of transactions;let i=index">
+        <th scope="row">{{ (currentPage - 1) * pageSize + i + 1 }}</th>
+        <td>{{transaction.category.name}}</td>
+        <td>{{transaction.description}}</td>
+        <td>{{transaction.amount}}</td>
+        <td>{{transaction.type}}</td>
+        <td>{{transaction.date}}</td>
+        <td>
+          <button type="button" class="btn btn-warning btn-sm ms-2  mb-2 mb-sm-0 text-white" (click)="openModalEdit(transaction)">
+            <i class="bi bi-pencil-fill"></i>
+          </button>
+          <button type="button" class="btn btn-danger btn-sm ms-2  text-white" (click)="deleteTransaction(transaction.id)"><i class="bi bi-trash2-fill"></i></button>
+        </td>
+      </tr>
+      
+    </tbody>
+  </table>
+  </div>
+  <ngb-pagination
+  [collectionSize]="totalItems"
+  [(page)]="currentPage"
+  [pageSize]="pageSize"
+  (pageChange)="onPageChange($event)" >
+  </ngb-pagination>
+  <div *ngIf="transactions.length === 0">
+    No hay datos disponibles.
+  </div>
+ 
+  

@@ -1,0 +1,33 @@
+
+<div class="modal-header bg-primary text-white ps-2 mb-2">
+    <h4 class="modal-title">Mis Datos</h4>
+   
+  </div>
+  <div class="modal-body pb-2">
+    <form (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="name" class="form-label">Username</label>
+        <input type="text" class="form-control" id="username" required [(ngModel)]="username" name="username">
+      </div>
+      <div class="mb-3">
+        <label for="name" class="form-label">Email</label>
+        <input type="text" class="form-control" id="email" required [(ngModel)]="email" name="email">
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" required [(ngModel)]="password" name="password">
+      </div>
+      <div class="mb-3">
+        <img class="img-thumbnail w-25" src="{{imgUrl}}">
+      </div>
+      <div class="mb-3">
+        
+        <label for="image" class="form-label">Imagen</label>
+        <input type="file" class="form-control" id="image" name="image" (change)="imageChange($event)" accept="image/*">
+      </div>
+      <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+      <button type="button" class="close btn btn-danger text-white ms-2" (click)="close()"  aria-label="Close">
+        Cerrar
+      </button>
+    </form>
+  </div>

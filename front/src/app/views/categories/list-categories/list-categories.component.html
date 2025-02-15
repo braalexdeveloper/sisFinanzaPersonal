@@ -1,0 +1,33 @@
+<button type="button" class="btn btn-success mb-3 text-white" (click)="openModal()">Crear Nuevo</button>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let category of allCategories;let i=index">
+        <th scope="row">{{ (numPag - 1) * pageSize + i + 1 }}</th>
+        <td>{{category.name}}</td>
+        <td>
+          <button type="button" class="btn btn-warning btn-sm mx-2 text-white" (click)="openModalEdit(category)">
+            <i class="bi bi-pencil-fill"></i>
+          </button>
+          <button type="button" class="btn btn-danger btn-sm text-white" (click)="deleteCategory(category.id)"><i class="bi bi-trash2-fill"></i></button>
+        </td>
+      </tr>
+      
+    </tbody>
+  </table>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <li class="page-item">
+        <button class="page-link {{numPag <=1 ? 'disabled' : ''}}"  (click)="prev()">Previous</button>
+        </li>
+      <li class="page-item {{num===numPag ? 'active' : ''}} " *ngFor="let num of arrayPages"><button class="page-link " (click)="getCategories(num)">{{num}}</button></li>
+      
+      <li class="page-item" ><button class="page-link {{totalPages===numPag ? 'disabled' : ''}}"  (click)="next()">Next</button></li>
+    </ul>
+  </nav>
