@@ -40,14 +40,12 @@
   </c-col>
   <c-col sm="6" xl="3">
     <c-widget-stat-a
-      [title]="'Sessions'"
-      color="danger"
+      [title]="'Ingreso Mensual'"
+      color="success"
     >
       <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
-        <span>44K</span>
-        <span class="fw-normal" style="font-size: 12px;">
-          (-23.6% <svg cIcon name="cilArrowBottom" size="sm"></svg>)
-        </span>
+        <span>S/ {{ingreso_month}}</span>
+        
       </ng-template>
      
       

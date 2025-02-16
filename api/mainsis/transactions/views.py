@@ -42,12 +42,31 @@ class TransactionViewSet(ModelViewSet):
         return Transaction.objects.filter(filters).order_by('-id')
 
     @action(detail=False,methods=['get'])
+    def total_ingresos(self,request):
+        user_id=request.query_params.get('user_id')
+
+        today=localtime(now()).date()
+        first_day_of_month=today.replace(day=1)
+        
+        monthly_ingreso=Transaction.objects.filter(
+            user_id=user_id,type='ingreso',date__gte=first_day_of_month
+        ).aggregate(total=Sum('amount'))['total'] or 0
+
+        return Response({
+            "monthly_ingreso": monthly_ingreso
+             
+         }, status=status.HTTP_200_OK)
+
+
+
+
+    @action(detail=False,methods=['get'])
     def total_expenses(self,request):
         
          user_id = request.query_params.get('user_id')
 
          today = localtime(now()).date()
-         print(f"User ID: {user_id}, Today: {today}")  # Debugging
+         
          first_day_of_month = today.replace(day=1)  # Primer día del mes actual
          first_day_of_year = today.replace(month=1, day=1)  # Primer día del año actual
 
@@ -56,10 +75,7 @@ class TransactionViewSet(ModelViewSet):
              user_id=user_id, type="gasto", date=today
          ).aggregate(total=Sum('amount'))['total'] or 0
 
-         # Debugging: Imprime la consulta SQL y el resultado
-         print(f"Daily Expense Query: {Transaction.objects.filter(user_id=user_id, type='gasto', date=today).query}")
-         print(f"Daily Expense: {daily_expense}")
-
+         
          # Gasto mensual
          monthly_expense = Transaction.objects.filter(
              user_id=user_id, type="gasto", date__gte=first_day_of_month

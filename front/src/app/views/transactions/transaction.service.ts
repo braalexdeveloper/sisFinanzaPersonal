@@ -48,4 +48,8 @@ private readonly TRANSACTIONS_ENDPOINT = 'transactions/';
   getExpenses(user_id:number):Observable<any>{
     return this.http.get(`${this.api}${this.TRANSACTIONS_ENDPOINT}total_expenses/?user_id=${user_id}`,{headers:this.getHeaders()})
   }
+
+  getIngresos(user_id:number):Observable<any>{
+    return this.http.get(`${this.api}${this.TRANSACTIONS_ENDPOINT}total_ingresos/?user_id=${user_id}`,{headers:this.getHeaders()})
+  }
 }

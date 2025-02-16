@@ -33,6 +33,8 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
  expense_month:number=0;
  expense_year:number=0;
 
+ ingreso_month:number=0;
+
   data: any[] = [];
   options: any[] = [];
   labels = [
@@ -142,7 +144,18 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
           error:(error)=>{
             console.log(error)
           }
-        })
+        });
+
+        this._transactionService.getIngresos(el.id).subscribe({
+          next:(data)=>{
+            
+            this.ingreso_month=data.monthly_ingreso.toFixed(2)
+            
+          },
+          error:(error)=>{
+            console.log(error)
+          }
+        });
       }
     })
     
