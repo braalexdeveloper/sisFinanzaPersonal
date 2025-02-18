@@ -8,6 +8,7 @@ import { EditTransactionComponent } from '../edit-transaction/edit-transaction.c
 import { AlertService } from '../../../services/alert.service';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { PdfService } from '../../../services/pdf.service';
 
 @Component({
   selector: 'app-list-transaction',
@@ -25,13 +26,16 @@ user:any='';
 date:any='';
 type:string='';
 
+month:number | string='';
+
 btnDeleteFilters:boolean=false;
 
  constructor(
   private _TransactionService:TransactionService,
   private modalService:BsModalService,
   private modalRef:BsModalRef,
-  private alertService:AlertService
+  private alertService:AlertService,
+  private pdfService:PdfService
  ){}
 
  ngOnInit(): void {
@@ -40,7 +44,7 @@ btnDeleteFilters:boolean=false;
  }
 
  getTransactions(){
- this._TransactionService.getTransactions(this.currentPage,this.pageSize,this.user.id,this.type,this.date).subscribe({
+ this._TransactionService.getTransactions(this.currentPage,this.pageSize,this.user.id,this.type,this.date,this.month).subscribe({
   next:(data)=>{
     this.transactions=data.results;
     this.totalItems=data.count;
@@ -63,12 +67,29 @@ console.log(error)
   this.btnDeleteFilters=true;
  }
 
+ handleMonth(){
+console.log(this.month)
+this.getTransactions();
+  this.btnDeleteFilters=true;
+ }
+
  clearFilters(){
   this.date='';
   this.type='';
+  this.month='';
   this.getTransactions();
   this.btnDeleteFilters=false;
  }
+
+ generatePdf(){
+  this._TransactionService.allTransactions(this.user.id,this.type,this.date,this.month).subscribe({
+    next:(result)=>{
+      this.pdfService.generatePdf(result,"Reporte de Transacciones");
+    }
+  })
+  
+ }
+
  openModal(){
 this.modalRef=this.modalService.show(AddTransactionComponent);
 

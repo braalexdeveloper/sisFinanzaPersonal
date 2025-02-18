@@ -29,9 +29,15 @@ private readonly TRANSACTIONS_ENDPOINT = 'transactions/';
     }
    }
    
-  getTransactions(page:number=1,pageSize:number,user_id:number,type?:string,date?:string):Observable<any>{
-    return this.http.get(`${this.api}${this.TRANSACTIONS_ENDPOINT}?user_id=${user_id}&page=${page}&page_size=${pageSize}&type=${type}&date=${date}`,{headers:this.getHeaders()});
+  getTransactions(page:number=1,pageSize:number,user_id:number,type?:string,date?:string,month?:number | string):Observable<any>{
+    return this.http.get(`${this.api}${this.TRANSACTIONS_ENDPOINT}?user_id=${user_id}&page=${page}&page_size=${pageSize}&type=${type}&date=${date}&month=${month}`,{headers:this.getHeaders()});
   }
+
+  
+  allTransactions(user_id:number,type?:string,date?:string,month?:number | string):Observable<any>{
+      return this.http.get(`${this.api}${this.TRANSACTIONS_ENDPOINT}export_all/?user_id=${user_id}&type=${type}&date=${date}&month=${month}`,{headers:this.getHeaders()});
+    }
+  
 
   create(transaction:TransactionInterface):Observable<any>{
     return this.http.post(`${this.api}${this.TRANSACTIONS_ENDPOINT}`,transaction,{headers:this.getHeaders()});

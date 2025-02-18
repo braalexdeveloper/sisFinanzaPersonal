@@ -1,7 +1,8 @@
 <button type="button" class="btn btn-success mb-3 text-white" (click)="openModal()">Crear Nuevo</button>
+<button type="button" class="btn btn-primary mb-3 text-white" (click)="generatePdf()">Exportar Pdf</button>
 <div class="row">
   
-  <div class="mb-3 col-4">
+  <div class="mb-3 col-3">
     <label for="name" class="form-label">Filtra por tipo de Transacción</label>
     <select   name="type" [(ngModel)]="type" class="form-select" (change)="handleType()">
       <option value="">Selecciona el tipo de Transacción</option>
@@ -9,11 +10,29 @@
         <option value="ingreso">Ingreso</option>
     </select>
   </div>
-  <div class="mb-3 col-4">
+  <div class="mb-3 col-3">
      <label for="name" class="form-label">Filtra por Fecha</label>
         <input type="date" class="form-control"  id="date" required [(ngModel)]="date"  name="date" (change)="handleDate()">
   </div>
-  <div class="mb-3 col-4 d-flex flex-column justify-content-end">
+  <div class="mb-3 col-3">
+    <label for="name" class="form-label">Filtra por Mes</label>
+    <select   name="month" [(ngModel)]="month" class="form-select" (change)="handleMonth()">
+      <option value="">Seleccionar Mes</option>
+        <option  value="1">Enero</option>
+        <option value="2">Febrero</option>
+        <option value="3">Marzo</option>
+        <option value="4">Abril</option>
+        <option value="5">Mayo</option>
+        <option value="6">Junio</option>
+        <option value="7">Julio</option>
+        <option value="8">Agosto</option>
+        <option value="9">Setiembre</option>
+        <option value="10">Octubre</option>
+        <option value="11">Noviembre</option>
+        <option value="12">Diciembre</option>
+    </select>
+  </div>
+  <div class="mb-3 col-3 d-flex flex-column justify-content-end">
     
    <button class="btn btn-secondary btn-sm mb-0  text-white" *ngIf="btnDeleteFilters" (click)="clearFilters()">Borrar Filtros</button>
  </div>

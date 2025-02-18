@@ -29,6 +29,7 @@ class TransactionViewSet(ModelViewSet):
         user_id = self.request.query_params.get('user_id', None)
         type=self.request.query_params.get('type',None)
         date=self.request.query_params.get('date',None)
+        month=self.request.query_params.get('month',None)
 
         filters=Q()
 
@@ -38,8 +39,34 @@ class TransactionViewSet(ModelViewSet):
             filters &=Q(type=type)
         if date:
             filters &=Q(date=date)
+        if month:
+            #Filtra por mes y año actual
+            today=localtime(now()).date()
+            filters &=Q(date__year=today.year,date__month=month)
 
         return Transaction.objects.filter(filters).order_by('-id')
+
+    @action(detail=False,methods=['get'])
+    def export_all(self,request):
+        user_id = request.query_params.get('user_id')
+        type = request.query_params.get('type')
+        date = request.query_params.get('date')
+        month = request.query_params.get('month')
+
+        filters = Q()
+
+        if user_id:
+            filters &= Q(user_id=user_id)
+        if type:
+            filters &= Q(type=type)
+        if date:
+            filters &= Q(date=date)
+        if month:
+            today = localtime(now()).date()
+            filters &= Q(date__year=today.year, date__month=month)
+        transactions = Transaction.objects.filter(filters).order_by('-id')
+        serializer=self.get_serializer(transactions,many=True)
+        return Response(serializer.data)
 
     @action(detail=False,methods=['get'])
     def total_ingresos(self,request):

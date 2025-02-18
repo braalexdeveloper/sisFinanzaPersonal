@@ -38,6 +38,8 @@
     "@coreui/utils": "^2.0.2",
     "@ng-bootstrap/ng-bootstrap": "^18.0.0",
     "chart.js": "^4.4.7",
+    "jspdf": "^2.5.2",
+    "jspdf-autotable": "^3.8.4",
     "lodash-es": "^4.17.21",
     "ngx-bootstrap": "^19.0.2",
     "ngx-scrollbar": "^13.0.3",
