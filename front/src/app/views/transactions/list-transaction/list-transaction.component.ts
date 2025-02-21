@@ -26,6 +26,9 @@ user:any='';
 date:any='';
 type:string='';
 
+totalIngresos:number=0;
+totalGastos:number=0;
+
 month:number | string='';
 
 btnDeleteFilters:boolean=false;
@@ -46,8 +49,10 @@ btnDeleteFilters:boolean=false;
  getTransactions(){
  this._TransactionService.getTransactions(this.currentPage,this.pageSize,this.user.id,this.type,this.date,this.month).subscribe({
   next:(data)=>{
-    this.transactions=data.results;
+    this.transactions=data.results.transactions;
     this.totalItems=data.count;
+    this.totalGastos=data.results?.total_gastos;
+    this.totalIngresos=data.results?.total_ingresos;
     console.log(data)
   },
   error:(error)=>{
@@ -84,7 +89,7 @@ this.getTransactions();
  generatePdf(){
   this._TransactionService.allTransactions(this.user.id,this.type,this.date,this.month).subscribe({
     next:(result)=>{
-      this.pdfService.generatePdf(result,"Reporte de Transacciones");
+      this.pdfService.generatePdf(result,this.totalGastos,this.totalIngresos,this.type,this.month);
     }
   })
   

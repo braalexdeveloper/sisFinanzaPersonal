@@ -46,6 +46,28 @@ class TransactionViewSet(ModelViewSet):
 
         return Transaction.objects.filter(filters).order_by('-id')
 
+    def list(self,request,*args,**kwargs):
+        #Obtener el query filtrado
+        queryset=self.filter_queryset(self.get_queryset())
+
+        #Paginar las transacciones
+        page=self.paginate_queryset(queryset)
+        serializer=self.get_serializer(page,many=True)
+
+        #calcular los totales de ingresos y gastos
+        total_ingresos=queryset.filter(type='ingreso').aggregate(total=Sum('amount'))['total'] or 0
+        total_expenses=queryset.filter(type='gasto').aggregate(total=Sum('amount'))['total'] or 0
+
+        # Devolver la respuesta personalizada
+        response_data = {
+            "transactions": serializer.data,
+            "total_ingresos": total_ingresos,
+            "total_gastos": total_expenses,
+        }
+
+        return self.get_paginated_response(response_data)
+
+
     @action(detail=False,methods=['get'])
     def export_all(self,request):
         user_id = request.query_params.get('user_id')

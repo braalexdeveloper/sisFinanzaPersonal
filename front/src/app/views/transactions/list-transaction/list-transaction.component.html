@@ -1,5 +1,19 @@
-<button type="button" class="btn btn-success mb-3 text-white" (click)="openModal()">Crear Nuevo</button>
-<button type="button" class="btn btn-primary mb-3 text-white" (click)="generatePdf()">Exportar Pdf</button>
+<div class="row">
+  <div class="col-8">
+    <button type="button" class="btn btn-success mb-3 text-white" (click)="openModal()">Crear Nuevo</button>
+ 
+  <button type="button" class="btn btn-primary mb-3 ms-2 text-white" (click)="generatePdf()">Exportar Pdf</button>
+</div>
+<div *ngIf="type!=='ingreso'" class="col-2">
+  <span>T. Gastos: </span>
+  <span class="textTotal">s/{{totalGastos}}</span>
+</div>
+<div *ngIf="type!=='gasto'" class="col-2">
+  <span >T. Ingresos: </span>
+  <span class="textTotal">s/{{totalIngresos}}</span>
+</div>
+</div>
+
 <div class="row">
   
   <div class="mb-3 col-3">
