@@ -9,6 +9,7 @@ import { AlertService } from '../../../services/alert.service';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { PdfService } from '../../../services/pdf.service';
+import { ExcelService } from '../../../services/excel.service';
 
 @Component({
   selector: 'app-list-transaction',
@@ -38,7 +39,8 @@ btnDeleteFilters:boolean=false;
   private modalService:BsModalService,
   private modalRef:BsModalRef,
   private alertService:AlertService,
-  private pdfService:PdfService
+  private pdfService:PdfService,
+  private excelService:ExcelService
  ){}
 
  ngOnInit(): void {
@@ -93,6 +95,10 @@ this.getTransactions();
     }
   })
   
+ }
+
+ generateExcel():void{
+  this.excelService.exportToExcel(this.transactions,"Lista de Transacciones")
  }
 
  openModal(){

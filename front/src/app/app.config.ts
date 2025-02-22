@@ -14,9 +14,13 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { DropdownModule, SidebarModule } from '@coreui/angular';
 import { IconSetService } from '@coreui/icons-angular';
 import { routes } from './app.routes';
+import { provideCharts } from 'ng2-charts';
+
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideCharts(), // Agrega esto en lugar de NgChartsModule
     provideRouter(routes,
       withRouterConfig({
         onSameUrlNavigation: 'reload'
